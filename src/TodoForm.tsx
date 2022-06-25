@@ -4,12 +4,12 @@ import { connect, useDispatch } from "react-redux";
 import { todoADD_ActionCR, TODO_ADDED } from "./todos";
 
 type TodoFormProps = {
-  onClose: any;
+  onClose: () => void;
 
   onSubmit: (todoText: string) => void;
 };
 
-const TodoForm: FC<TodoFormProps> = ({ onSubmit }, props) => {
+const TodoForm: FC<TodoFormProps> = ({ onSubmit, onClose }, props) => {
   const [inputValue, setInputValue] = useState("");
 
   const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -21,7 +21,7 @@ const TodoForm: FC<TodoFormProps> = ({ onSubmit }, props) => {
 
     setInputValue("");
 
-    props.onClose();
+    onClose();
   };
 
   return (
@@ -32,7 +32,7 @@ const TodoForm: FC<TodoFormProps> = ({ onSubmit }, props) => {
         </h3>
         <div className="mt-4 w-80 mb-4">
           <input
-            className="border-2 w-60 border-cyan-400"
+            className=" w-60 border-2 border-cyan-400 hover:ring-2 focus:ring-cyan-700 "
             value={inputValue}
             onChange={onInputChange}
             placeholder="Your todo text"
@@ -42,7 +42,7 @@ const TodoForm: FC<TodoFormProps> = ({ onSubmit }, props) => {
           <Button disabled={!inputValue} onClick={saveTodo}>
             Save
           </Button>
-          <Button onClick={props.onClose} theme="primary">
+          <Button onClick={onClose} theme="primary">
             Cancel
           </Button>
         </div>

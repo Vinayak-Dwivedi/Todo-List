@@ -1,10 +1,10 @@
 import { FC, memo } from "react";
 import { connect, useDispatch } from "react-redux";
-import { doneSelector, unDoneSelector } from "./selector";
+import { deleteSelector, doneSelector, unDoneSelector } from "./selector";
 import { State } from "./Store";
 import { TODO } from "./Todo";
 import TodoRow from "./TodoRow";
-import { TODOS_STATUS_CHANGE, todoToggle_ActionCR } from "./todos";
+import { TODOS_STATUS_CHANGE, todoToggle_ActionCR, TODO_DELETE } from "./todos";
 
 type TodoListProps = {
   todos: TODO[];
@@ -15,10 +15,20 @@ const TodoList: FC<TodoListProps> = ({ todos }) => {
   const handleStausChange = (id: number, done: boolean) => {
     dispatch({ type: TODOS_STATUS_CHANGE, payload: { id, done } });
   };
+
+  const deleteTodo = (id: number) => {
+    dispatch({ type: TODO_DELETE, payload: { id } });
+  };
+
   return (
-    <div>
+    <div className="space-y-4">
       {todos.map((t) => (
-        <TodoRow key={t.id} todo={t} onStatusChange={handleStausChange} />
+        <TodoRow
+          key={t.id}
+          todo={t}
+          onStatusChange={handleStausChange}
+          ondeleteTodo={deleteTodo}
+        />
       ))}
     </div>
   );
@@ -37,6 +47,10 @@ const completeMapper = (s: State) => {
 };
 const dispatchMapeer = {
   onStausChange: todoToggle_ActionCR,
+};
+
+const deleteMApper = (s: State) => {
+  return { todos: deleteSelector(s) };
 };
 
 export const IncompleteList = connect(incompleteMapper)(TodoList);

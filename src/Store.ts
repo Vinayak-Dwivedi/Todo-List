@@ -2,7 +2,7 @@ import { useState } from "react";
 import { createStore, Reducer } from "redux";
 
 import { TODO } from "./Todo";
-import { TODOS_STATUS_CHANGE, TODO_ADDED } from "./todos";
+import { TODOS_STATUS_CHANGE, TODO_ADDED, TODO_DELETE } from "./todos";
 
 export type State = {
   todos: TODO[];
@@ -31,6 +31,11 @@ export const reducer: Reducer<State> = (State = initialState, action) => {
       });
 
       return { ...State, todos: newTodos };
+    }
+    case TODO_DELETE: {
+      const { id } = action.payload;
+      const newtodos = State.todos.filter((t) => t.id !== id);
+      return { ...State, todos: newtodos };
     }
 
     default: {

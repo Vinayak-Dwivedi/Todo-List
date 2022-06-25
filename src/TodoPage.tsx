@@ -16,7 +16,7 @@ const TodoPage: FC<TodoPageProps> = (props) => {
 
   return (
     <>
-      <div className="px-10 space-y-2">
+      <div className="px-10 space-y-4">
         <Header name="Vinayak Dwivedi"> TODO LIST BY </Header>
         <div>
           <h1 className="font-bold text-xl text-cyan-700 p-5">Things Todo</h1>

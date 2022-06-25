@@ -16,7 +16,7 @@ const Button: FC<ButtonProps> = ({ theme, ...rest }) => {
       <div>
         <button
           className={cn(
-            " rounded-md font-medium  border-2 hover:ring-2 focus:ring-2 px-6 py-2 inline-flex  ",
+            " rounded-md font-medium transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110  duration-300 ... border-2 hover:ring-2 focus:ring-2 px-6 py-2 inline-flex  ",
             themeClasses
           )}
           {...rest}
